@@ -1,5 +1,6 @@
 'use client'
 
+import { Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 
 const certificates: Record<string, {
@@ -34,7 +35,7 @@ const certificates: Record<string, {
   },
 }
 
-export default function Page() {
+function CertificateVerification() {
   const searchParams = useSearchParams()
   const id = searchParams.get('id') || ''
   const certificate = id && certificates[id] ? certificates[id] : null
@@ -163,5 +164,13 @@ export default function Page() {
         </div>
       </div>
     </main>
+  )
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={null}>
+      <CertificateVerification />
+    </Suspense>
   )
 }
